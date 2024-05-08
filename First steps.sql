@@ -1,23 +1,22 @@
 CREATE DATABASE film_libr;
-CREATE SCHEMA film_libr;
+CREATE SCHEMA film_libr; 
 
 CREATE TABLE Actors (
-	ID int NOT NULL,
+	ID int IDENTITY(1,1) PRIMARY KEY,
 	name varchar(255) NOT NULL,
 	sex varchar(255) NOT NULL,
 	birth_date datetime,
-	country varchar(255) NOT NULL,
-	PRIMARY KEY(ID)
+	country varchar(255) NOT NULL
 )
 
-CREATE TABLE Director (
+CREATE TABLE Directors (
 	ID int IDENTITY(1,1) PRIMARY KEY,
 	name varchar(255) NOT NULL,
 	birth_date datetime,
 	country varchar(255) NOT NULL
 )
 
-CREATE TABLE Studio (
+CREATE TABLE Studios (
 	ID int IDENTITY(1,1) PRIMARY KEY,
 	name varchar(255) NOT NULL,
 	country varchar(255) NOT NULL,
@@ -31,8 +30,9 @@ CREATE TABLE Films(
 	genre varchar(255) NOT NULL,
 	language varchar(255) NOT NULL,
 	budget money NOT NULL,
-	director int FOREIGN KEY REFERENCES director(ID),
-	studio int FOREIGN KEY REFERENCES studio(ID)
+	director int FOREIGN KEY REFERENCES Directors(ID),
+	studio int FOREIGN KEY REFERENCES Studios(ID),
+	length int NOT NULL
 )
 
 CREATE TABLE Roles(
@@ -41,11 +41,11 @@ CREATE TABLE Roles(
 	film int FOREIGN KEY REFERENCES films(ID)
 )
 
-INSERT INTO actors 
+INSERT INTO Actors 
 VALUES (
 	'Mark Hamill',
 	'Male',
-	1951-09-25,
+	'1951-09-25',
 	'United States'
 ),
 (
@@ -54,6 +54,7 @@ VALUES (
 	1914-04-02,
 	'United Kingdom'
 ),
+
 (
 	'Robin Williams',
 	'Male',
@@ -79,13 +80,13 @@ VALUES (
 	'France'
 ),
 (
-	'Leïla Bekhti',
+	'Le?la Bekhti',
 	'Female',
 	1984-03-06,
 	'France'
 )
 
-INSERT INTO director 
+INSERT INTO Directors 
 VALUES (
 	'Jacques Audiard',
 	1952-04-30,
@@ -107,7 +108,7 @@ VALUES (
 	'United States'
 )
 
-INSERT INTO studio 
+INSERT INTO Studios
 VALUES (
 	'Paramount Pictures',
 	'United States',
@@ -129,7 +130,7 @@ VALUES (
 	'France'
 )
 
-INSERT INTO films 
+INSERT INTO Films 
 VALUES (
 	'A Prophet',
 	2009,
@@ -181,29 +182,29 @@ VALUES (
 	142
 )
 
-INSERT INTO roles
+INSERT INTO Roles
 VALUES (2, 1), (2, 3), (4, 1), (10, 2), (9, 2), (8, 4), (9, 4), (7, 3), (5, 1), (6, 5), (11, 6), (10, 7)
 
-UPDATE studio
+UPDATE Studios
 SET country = 'France',
 	headquarters = 'Neuilly-sur-Seine'
 WHERE ID = 5
 
-INSERT INTO director 
+INSERT INTO Directors
 VALUES (
 	'Bong Joon-ho',
 	'1969-09-14',
 	'South Korea'
 )
 
-INSERT INTO studio 
+INSERT INTO Studios
 VALUES (
 	'CJ Entertainment',
 	'South Korea',
 	'Seoul'
-)
+)*/
 
-INSERT INTO films 
+INSERT INTO Films 
 VALUES (
 	'Dheepan',
 	2015,
@@ -224,5 +225,4 @@ VALUES (
 	6, 
 	132
 )
-
 
