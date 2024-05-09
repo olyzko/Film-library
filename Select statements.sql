@@ -5,7 +5,7 @@ SELECT DISTINCT Actors.name, Actors.birth_date
 FROM Studios 
 INNER JOIN Films ON studio.ID = Films.studio
 INNER JOIN Roles ON Films.ID = Roles.film 
-INNER JOIN Actors ON Actors.ID = Actors.actor 
+INNER JOIN Actors ON Actors.ID = Roles.actor
 WHERE Studios.name = '20th Century Fox';
 */
 
@@ -73,11 +73,34 @@ ORDER BY length
 */
 
 -- Show names and birth dates for each actor and film director
-
+/*
 SELECT name, birth_date, country
 FROM Actors
-
 UNION ALL
-
 SELECT name, birth_date, country
+FROM Director
+*/
+
+-- Find directors of all films where at least one actor from France of United Kingdom, whose first name starts with 'T', played
+
+/*
+SELECT DISTINCT Directors.name
 FROM Directors
+INNER JOIN Films ON Directors.id = Films.director
+INNER JOIN Roles ON Films.ID = Roles.film 
+INNER JOIN Actors ON Roles.actor = Actors.ID
+WHERE Actors.name LIKE 'T%'
+AND Actors.country IN ('France', 'United Kingdom')
+*/
+
+-- Find title and director name for films with 50% highest budget
+
+/*
+SELECT TOP 50 PERCENT 
+	Films.title AS film,
+	Directors.name AS directors,
+	Films.budget
+FROM Directors
+LEFT JOIN Films ON Directors.id = Films.director
+ORDER BY budget DESC
+*/
